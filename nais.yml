@@ -1,0 +1,28 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: swagger-ui
+  namespace: aap
+  labels:
+    team: aap
+  annotations:
+    github.url: "https://github.com/navikt/aap-swagger"
+spec:
+  image: swaggerapi/swagger-ui
+  replicas:
+    min: 1
+    max: 1
+  ingresses:
+    - https://aap-swagger.dev.intern.nav.no
+  resources:
+    limits:
+      cpu: 256m
+      memory: 256Mi
+    requests:
+      cpu: 256m
+      memory: 256Mi
+  env:
+    - name: QUERY_CONFIG_ENABLED
+      value: "true"
+    - name: URL
+      value: https://aap-api.dev.intern.nav.no/static/openapi.yml
